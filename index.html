@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>kosa kata</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container max-w-sm mx-auto border-red-700">
+    <header class="w-full px-3 py-2 text-white bg-blue-500">
+      <div class="flex justify-between">
+        <nav class="flex gap-3">
+          <select class="bg-slate-400 w-[90px] rounded-sm" name="" id="ygDitampilkan">
+            <option value="sekarang">sekarang</option>
+            <option value="kemarin">kemarin</option>
+            <option value="lusa">lusa</option>
+            <option value="minggu-lalu">minggu lalu</option>
+            <option value="10hari-lalu">10 hari lalu</option></option>
+            <option value="2minggu-lalu">2 minggu lalu</option>
+            <option value="18hari-lalu">18 hari lalu</option>
+            <option value="mingu-lusa">mingu lusa</option>
+            <option value="bulan-kemarin">bulan kemarin</option>
+            <option value="2bulan-lalu">2 bulan lalu</option>
+            <option value="bulan-lusa">bulan lusa</option>
+            <option value="5bulan-lalu">5 bulan lalu</option>
+            <option value="semua">semua</option>
+          </select>
+          <a href=""><i class="bi bi-pencil-square"></i></a>
+          <a><i onclick="munculkanForm()" class="bi bi-plus cursor-pointer text-lg"></i></a>
+        </nav>
+       <i class="bi bi-three-dots-vertical"></i>
+      </div>
+    </header>
+    
+    <!-- baigan form -->
+    <div class="overlay hidden absolute w-full h-full bg-zinc-800/70">
+      <div class="max-w-sm">
+        <div class="w-[80%] mx-auto mt-24 p-4 shadow-xl border-[1px] border-gray-200 bg-white rounded-lg relative">
+          <i onclick="hilangkanForm()" class="bi bi-x absolute right-3 top-1 text-rose-600 cursor-pointer"></i>
+          <form id="add-form">
+            <input placeholder="Inggris"type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400" id="english" required>
+            <br>
+            <input placeholder="Indonesia"type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400" id="indonesian" required> <br>
+            <input class="w-full p-1 mt-2 border-0 bg-slate-100" type="date" id="date" required>
+            <br>
+            <button class="bg-orange-600 text-white px-2 py-1 rounded shadow-sm mt-4" type="submit">Tambahkan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- bagian main -->
+    <main>
+      <div class="px-3">
+        <table class="my-3 w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th> Inggris</th>
+              <th> Indonesia</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+
+        <div class="flex justify-between absolute bottom-14 left-1/2 -translate-x-1/2 w-[70%]  capitalize border-2 border-blue-500 rounded-md font-medium">
+          <span class="block py-2  px-3">kemarin</span>
+          <span class="block bg-blue-500 text-white py-2   px-3">sekarang</span>
+          <span class="block py-2  px-3">esoknya</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
