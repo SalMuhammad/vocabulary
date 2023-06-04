@@ -97,13 +97,14 @@ $('#table-body').addEventListener('click', (e) => {
 
 function munculkanForm(){
   $('.overlay').classList.remove('hidden')
+  tampilkanwaktuSekarang();
 }
 function hilangkanForm(){
   $('.overlay').classList.add('hidden')
 }
 
 function filterByTime(obj,tahun,bulan,tanggal) {
-  const sekarang = tambahkanNol(new Date()).toLocaleString();
+  // const sekarang = tambahkanNol(new Date()).toLocaleString();
   const tgl = tambahTanggal(new Date(), tanggal)
   const bln = tambahBulan(new Date(), bulan)
   const thn = tambahTahun(new Date(), tahun)
@@ -258,15 +259,22 @@ var tgl = tambahTanggal(tanggalSekarang, -27);
 //var thn = tambahTahun(tanggalSekarang, 5);
 //console.log("Tanggal setelah ditambah 5 tahun:", thn);
 
+*/
 
+
+// funggsi menampilkan waktu sekarang
 function tampilkanwaktuSekarang() {
   const dt = new Date();
-  const timeZoneOffset = + 420; // 7 jam = 7 x 60 menit = -420 menit
-  const localDate = new Date(dt.getTime() + timeZoneOffset * 60 * 1000);
-  const currentDate = localDate.toISOString().slice(0, 16);
-  console.log($('#date'))
-  $('#date').value = currentDate
-}*/
+  //const timeZoneOffset = + 420; // 7 jam = 7 x 60 menit = -420 menit
+  // const localDate = new Date(dt.getTime()) //+ timeZoneOffset * 60 * 1000);
+ // const currentDate = localDate.toISOString().slice(0, 16);
+ const date= new Date().getDate()
+ const month= new Date().getMonth() + 1
+ const year= new Date().getFullYear()
+ const currentDate = `0${date}/${month}/${year}`
+  //console.log(currentDate)
+ $('#date').value = currentDate
+}
 
 
 
