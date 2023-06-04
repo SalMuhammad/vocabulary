@@ -136,8 +136,8 @@ function loadWords(words) {
       <td>${word.indonesian}</td>
      
       <td>
-        <button class="edit"><i class="bi bi-pen"></i></button>
-        <button class="delete"><i class="bi bi-trash"></i></button>
+        <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+        <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
       </td>
     `;
     
@@ -160,8 +160,8 @@ function addWord(word) {
     <td>${word.indonesian}</td>
    
     <td>
-      <button class="edit"><i class="bi bi-pen"></i></button>
-      <button class="delete"><i class="bi bi-trash"></i></button>
+    <button class="edit"><i class="bi bi-pen text-green-600"></i></button>
+    <button class="delete"><i class="bi bi-trash text-red-600"></i></button>
     </td>
   `;
   $('#table-body').appendChild(row); 
@@ -172,11 +172,13 @@ function addWord(word) {
 // Fungsi untuk menghapus kata dari localStorage dan tabel
 function deleteWord(index) {
 //  const words = JSON.parse(localStorage.getItem('words')) || [];
-  words.splice(index, 1);
-  localStorage.setItem('words', JSON.stringify(words));
-  const rows = $('#table-body').querySelectorAll('tr');
-  rows[index].remove();
-  updateTableIndexes();
+  if(confirm('apakah benar ingin menghapus?')){
+    words.splice(index, 1);
+    localStorage.setItem('words', JSON.stringify(words));
+    const rows = $('#table-body').querySelectorAll('tr');
+    rows[index].remove();
+    updateTableIndexes();
+  }
 }
 
 // Fungsi untuk memperbarui nomor indeks pada tabel setelah dihapus
@@ -213,13 +215,14 @@ function editWord(index, word) {
       <td>${newWord.indonesian}</td>
 
       <td>
-      <button class="edit"><i class="bi bi-pen"></i></button>
-      <button class="delete"><i class="bi bi-trash"></i></button>
+      <button class="edit"><i class="bi bi-pen text-green-600"></i></button>
+      <button class="delete"><i class="bi bi-trash text-red-600"></i></button>
       </td>
     `;
     updateTableIndexes(); // tambahkan ini untuk memperbarui nomor indeks pada tabel
   }
 }
+
 
 
 // Fungsi untuk menambahkan atau mengurangi tanggal
