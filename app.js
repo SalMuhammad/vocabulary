@@ -75,8 +75,7 @@ $('#add-form').addEventListener('submit', (e) => {
 // Menambahkan event listener untuk tombol hapus
 $('#table-body').addEventListener('click', (e) => {
   if (e.target.classList.contains('delete')) {
-    const row = e.target.parentElement.parentElement;
-    
+    const row = e.target.parentElement.parentElement;    
     const index = row.dataset.index;
     if(confirm('apakah yakin?')){
       deleteWord(index);
@@ -128,14 +127,14 @@ function $(ell){
 // Fungsi untuk memuat data kata dari localStorage ke tabel
 function loadWords(words) {
   words.forEach((word, index) => {
-    const row = document.createElement('tr');
+    const row = document.createElement('tr')
     row.dataset.index = index;
     row.innerHTML = `
       <td>${index + 1}</td>
       <td>${word.english}</td>
       <td>${word.indonesian}</td>
      
-      <td>
+      <td class="w-9">
         <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
         <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
       </td>
