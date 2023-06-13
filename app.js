@@ -153,13 +153,13 @@ function addWord(word) {
   const row = document.createElement('tr');
   row.dataset.index = words.length - 1;
   row.innerHTML = `
-    <td>${words.length}</td>
-    <td>${word.english}</td>
+    <td class="text-right">${words.length}</td>
+    <td class="pl-2">${word.english}</td>
     <td>${word.indonesian}</td>
    
-    <td>
-    <button class="edit"><i class="bi bi-pen text-green-600"></i></button>
-    <button class="delete"><i class="bi bi-trash text-red-600"></i></button>
+    <td class="w-10">
+    <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+    <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
     </td>
   `;
   $('#table-body').appendChild(row); 
