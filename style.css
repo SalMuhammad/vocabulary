@@ -1,11 +1,11 @@
-/* *{
+*{
   border: none;
   text-decoration: none;
   outline: none;
   list-style: none;
   background: transparent;
-} */
+}
 
 tr:nth-child(2n){
-  background-color: #06e61869;
+  background-color: #3b83f648;
 }

@@ -131,7 +131,7 @@ function loadWords(words) {
     row.dataset.index = index;
     row.innerHTML = `
       <td class="text-right">${index + 1}</td>
-      <td class="pl-1">${word.english}</td>
+      <td class="pl-2">${word.english}</td>
       <td>${word.indonesian}</td>
       
       <td class="w-10">
