@@ -158,8 +158,8 @@ function addWord(word) {
     <td>${word.indonesian}</td>
    
     <td class="w-10">
-    <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-    <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+    <button  class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+    <button  class="delete"><i class="bi bi-trash text-red-600"></i></button>
     </td>
   `;
   $('#table-body').appendChild(row); 
