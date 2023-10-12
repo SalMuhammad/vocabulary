@@ -21,29 +21,17 @@ $('#ygDitampilkan').addEventListener('change', () => {
     case 'lusa':
       loadWords(filterByTime(words, 0, 0, -2));
       break;
-    case 'minggu-lalu':
-      loadWords(filterByTime(words, 0, 0, -7));
-      break;
-    case '10hari-lalu':
-      loadWords(filterByTime(words, 0, 0, -10));
-      break;
     case '2minggu-lalu':
       loadWords(filterByTime(words, 0, 0, -14));
       break;
     case '18hari-lalu':
       loadWords(filterByTime(words, 0, 0, -18));
       break;
-    case 'minggu-lusa':
-      loadWords(filterByTime(words, 0, 0, -21));
-      break;
     case 'bulan-kemarin':
       loadWords(filterByTime(words, 0, -1, 0));
       break;
     case '2bulan-lalu':
       loadWords(filterByTime(words, 0, -2, 0));
-      break;
-    case 'bulan-lusa':
-      loadWords(filterByTime(words, 0, -3, 0));
       break;
     case '5bulan-lalu':
       loadWords(filterByTime(words, 0, -5, 0));
