@@ -32,7 +32,7 @@ $('#ygDitampilkan').addEventListener('change', () => {
       break;
     case '2bulan-lalu':
       loadWords(filterByTime(words, 0, -2, 0));
-      break;
+      break; 
     case '5bulan-lalu':
       loadWords(filterByTime(words, 0, -5, 0));
       break;
