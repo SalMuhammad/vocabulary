@@ -266,25 +266,15 @@ function tampilkanwaktuSekarang() {
 }
 
 
+// bagian navbar
+$('#toggle').addEventListener('click',function(){
+  let kondisi = confirm('benarkah ingin menghpus?')
+  if(kondisi) localStorage.clear(); location.reload()
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$('.tombol-titik-3').addEventListener('click', e => {
+  e.target.nextElementSibling.classList.toggle('hidden')
+  e.target.classList.toggle('text-red-500')
+  e.target.classList.toggle('bi-x-lg')
+  e.target.classList.toggle('bi-three-dots-vertical')
+})
