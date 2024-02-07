@@ -3,7 +3,8 @@
 
 
 const words = JSON.parse(localStorage.getItem('words'))|| []
-console.log(words);
+console.table(words);
+
 // Memuat data kata saat halaman dimuat
 loadWords(filterByTime(words,0,0,0))
 // Pilihan untuk menampilkan
@@ -278,3 +279,36 @@ $('.tombol-titik-3').addEventListener('click', e => {
   e.target.classList.toggle('bi-x-lg')
   e.target.classList.toggle('bi-three-dots-vertical')
 })
+
+
+
+let table = document.createElement('table')
+const tr = document.createElement('tr')
+
+const td = document.createElement('td')
+const tgll = document.createTextNode('tanggal')
+td.append(tgll)
+const td2 = document.createElement('td')
+const ingris = document.createTextNode('english')
+td2.append(ingris)
+const td3 = document.createElement('td')
+const indo = document.createTextNode('indonesia')
+td3.append(indo)
+tr.append(td)
+tr.append(td2)
+tr.append(td3)
+table.prepend(tr)
+table.classList.add('muncang')
+const tbody = `
+  <tbody>
+    ${words.map(w => `
+      <tr>
+        <td>${w.date}</td>
+        <td>${w.indonesian}</td>
+        <td>${w.english}</td>
+      </tr>
+    `).join('')}
+  </tbody>
+`
+table.innerHTML += tbody
+document.body.append(table)

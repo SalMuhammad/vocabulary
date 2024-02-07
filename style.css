@@ -9,3 +9,8 @@
 tr:nth-child(2n){
   background-color: #3bf67938;
 }
+
+.muncang td{
+  padding: 10px;
+  border: 1px solid ;
+}
