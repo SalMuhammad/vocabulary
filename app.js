@@ -3,7 +3,7 @@
 
 
 const words = JSON.parse(localStorage.getItem('words'))|| []
-
+console.log(words);
 // Memuat data kata saat halaman dimuat
 loadWords(filterByTime(words,0,0,0))
 // Pilihan untuk menampilkan
