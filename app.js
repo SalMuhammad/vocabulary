@@ -263,11 +263,19 @@ function tampilkanwaktuSekarang() {
 }
 
 
-// bagian navbar
-$('#toggle').addEventListener('click',function(){
-  let kondisi = confirm('benarkah ingin menghpus?')
-  if(kondisi) localStorage.clear(); location.reload()
-})
+// Fungsi untuk menghapus kosakata dari localStorage
+const hapusKosakata = () => localStorage.setItem('words', JSON.stringify([]));
+
+// Event listener untuk tombol toggle di navbar
+document.getElementById('toggle').addEventListener('click', () => {
+  if (confirm('Benarkah ingin menghapus?')) {
+    hapusKosakata();
+    location.reload(); // Reload halaman setelah menghapus data
+  }
+});
+
+
+
 
 $('.tombol-titik-3').addEventListener('click', e => {
   e.target.nextElementSibling.classList.toggle('hidden')
