@@ -316,3 +316,50 @@ $('.tombol-titik-3').addEventListener('click', e => {
 // `
 // table.innerHTML += tbody
 // document.body.append(table)
+
+
+
+
+
+
+// Ambil elemen saklar dark mode
+const toggleSwitch = document.getElementById('dark-mode-toggle');
+const htmlElement = document.documentElement;
+
+// Fungsi untuk mengaktifkan mode gelap
+function enableDarkMode() {
+  htmlElement.classList.add('dark'); // Tambahkan kelas 'dark'
+  localStorage.setItem('theme', 'dark'); // Simpan preferensi ke localStorage
+}
+
+// Fungsi untuk menonaktifkan mode gelap
+function disableDarkMode() {
+  htmlElement.classList.remove('dark'); // Hapus kelas 'dark'
+  localStorage.setItem('theme', 'light'); // Simpan preferensi ke localStorage
+}
+
+// Event listener untuk saklar
+toggleSwitch.addEventListener('change', () => {
+  if (toggleSwitch.checked) {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
+});
+
+// Periksa preferensi tema saat halaman dimuat
+function initializeTheme() {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme === 'dark') {
+    enableDarkMode();
+    toggleSwitch.checked = true; // Setel saklar ke posisi aktif
+  } else {
+    disableDarkMode();
+    toggleSwitch.checked = false; // Setel saklar ke posisi nonaktif
+  }
+}
+
+// Panggil fungsi inisialisasi saat halaman dimuat
+initializeTheme();
+
+
