@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>kosa kata</title>
+  <title>Kosa Kata</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container max-w-sm mx-auto border-red-700">
-    <header class="w-full px-3 py-2 text-white bg-blue-500">
-      <div class="flex justify-between relative">
-        <nav class="flex gap-3">
-          <select class="bg-slate-400 w-[90px] rounded-sm" name="" id="ygDitampilkan">
+<body class="darwin dark:bg-gray-900 dark:text-white">
+  <div class="container max-w-sm mx-auto border-red-700 dark:border-gray-600">
+    <header class="w-full px-3 py-2 bg-blue-500 text-white dark:bg-gray-800 dark:text-gray-200">
+      <div class="flex justify-between items-center">
+        <div class="flex gap-3">
+          <select class="bg-slate-400 dark:bg-gray-700 dark:text-gray-300 w-[90px] rounded-sm" name="" id="ygDitampilkan">
             <option value="sekarang">sekarang</option>
             <option value="kemarin">kemarin</option>
             <option value="lusa">lusa</option>
@@ -27,50 +27,55 @@
           </select>
           <a href=""><i class="bi bi-pencil-square"></i></a>
           <a><i onclick="munculkanForm()" class="bi bi-plus cursor-pointer text-lg"></i></a>
-        </nav>
-        <i class="z-10 cursor-pointer relative tombol-titik-3 bi bi-three-dots-vertical "></i>
-        <nav class="p-2 pr-6 z-0 hidden shadow-lg rounded-lg fixed right-[85px] top-0  bg-white text-orange-500">
-          <button id="toggle">hapus semua data !!</button>
-       </nav>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Tombol Dark Mode -->
+          <label for="dark-mode-toggle" class="cursor-pointer flex items-center">
+            <input type="checkbox" id="dark-mode-toggle" class="hidden">
+            <i class="bi bi-sun text-yellow-400 dark:hidden"></i>
+            <span class="mx-2 text-sm">Dark Mode</span>
+            <i class="bi bi-moon text-gray-300 hidden dark:inline"></i>
+          </label>
+        </div>
       </div>
     </header>
 
-    <!-- baigan form -->
-    <div class="overlay hidden absolute w-full h-full bg-zinc-800/70">
+    <!-- Bagian form -->
+    <div class="overlay hidden absolute w-full h-full bg-zinc-800/70 dark:bg-black/50">
       <div class="max-w-sm">
-        <div class="w-[80%] mx-auto mt-24 p-4 shadow-xl border-[1px] border-gray-200 bg-white rounded-lg relative">
+        <div class="w-[80%] mx-auto mt-24 p-4 shadow-xl border-[1px] border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 rounded-lg relative">
           <i onclick="hilangkanForm()" class="bi bi-x absolute right-3 top-1 text-rose-600 cursor-pointer"></i>
           <form id="add-form">
-            <input placeholder="Inggris"type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400" id="english" required>
+            <input placeholder="Inggris" type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" id="english" required>
             <br>
-            <input placeholder="Indonesia"type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400" id="indonesian" required> <br>
-            <input class="w-full p-1 mt-2 border-0 bg-slate-100" type="date" id="date" required>
+            <input placeholder="Indonesia" type="text" class="w-full p-1 mt-1 border-b-[1px] border-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" id="indonesian" required>
             <br>
-            <button class="bg-orange-600 text-white px-2 py-1 rounded shadow-sm mt-4" type="submit">Tambahkan</button>
+            <input class="w-full p-1 mt-2 border-0 bg-slate-100 dark:bg-gray-700 dark:text-gray-300" type="date" id="date" required>
+            <br>
+            <button class="bg-orange-600 text-white px-2 py-1 rounded shadow-sm mt-4 dark:bg-orange-700">Tambahkan</button>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- bagian main -->
+    <!-- Bagian main -->
     <main>
       <div class="px-3">
         <table class="my-3 w-full">
           <thead>
-            <tr class="bg-green-600 text-white">
+            <tr class="bg-green-600 text-white dark:bg-green-800 dark:text-gray-200">
               <th>#</th>
-              <th> Inggris</th>
-              <th> Indonesia</th>
+              <th>Inggris</th>
+              <th>Indonesia</th>
               <th></th>
             </tr>
           </thead>
           <tbody id="table-body"></tbody>
         </table>
-
-        <div class="flex justify-between absolute bottom-14 left-1/2 -translate-x-1/2 max-w-sm bg-white capitalize border-2 border-blue-500 rounded-md font-medium hidden">
-          <span class="block py-2  px-3">kemarin</span>
-          <span class="block bg-blue-500 text-white py-2 px-3">sekarang</span>
-          <span class="block py-2  px-3">esoknya</span>
+        <div class="flex justify-between absolute bottom-14 left-1/2 -translate-x-1/2 max-w-sm bg-white capitalize border-2 border-blue-500 rounded-md font-medium hidden dark:bg-gray-800 dark:border-gray-600">
+          <span class="block py-2 px-3 dark:text-gray-300">kemarin</span>
+          <span class="block bg-blue-500 text-white py-2 px-3 dark:bg-blue-700">sekarang</span>
+          <span class="block py-2 px-3 dark:text-gray-300">esoknya</span>
         </div>
       </div>
     </main>
