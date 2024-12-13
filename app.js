@@ -109,26 +109,43 @@ function $(ell){
   return document.querySelector(ell)
 }
 
-
 // Fungsi untuk memuat data kata dari localStorage ke tabel
 function loadWords(words) {
   words.forEach((word, index) => {
-    const row = document.createElement('tr')
-    row.dataset.index = index;
-    row.innerHTML = `
-      <td class="text-right">${index + 1}</td>
-      <td class="pl-2">${word.english}</td>
-      <td>${word.indonesian}</td>
-      
-      <td class="w-10">
-      <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-      <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
-      </td>
-    `
-    $('#table-body').appendChild(row);
-    
-  })
+      const row = document.createElement('tr');
+      row.dataset.index = index;
+      row.innerHTML = `
+          <td class="text-right">${index + 1}</td>
+          <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+          <td>${word.indonesian}</td>
+          <td class="w-10">
+              <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+              <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+          </td>
+      `;
+      document.getElementById('table-body').appendChild(row);
+  });
 }
+
+// // Fungsi untuk memuat data kata dari localStorage ke tabel
+// function loadWords(words) {
+//   words.forEach((word, index) => {
+//     const row = document.createElement('tr')
+//     row.dataset.index = index;
+//     row.innerHTML = `
+//       <td class="text-right">${index + 1}</td>
+//       <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+//       <td>${word.indonesian}</td>
+      
+//       <td class="w-10">
+//       <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+//       <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+//       </td>
+//     `
+//     $('#table-body').appendChild(row);
+    
+//   })
+// }
 
 // Fungsi untuk menambahkan kata baru ke localStorage dan tabel
 function addWord(word) {
@@ -144,9 +161,9 @@ function addWord(word) {
     <td>${word.indonesian}</td>
    
     <td class="w-10">
-    <button  class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-    <button  class="delete"><i class="bi bi-trash text-red-600"></i></button>
-    </td>
+      <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+      <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+      </td>
   `;
   $('#table-body').appendChild(row); 
 }
@@ -208,6 +225,26 @@ function editWord(index, word) {
 }
 
 
+// membunyikan bahasa ingris
+document.getElementById('table-body').addEventListener('click', e => {
+  if (e.target.classList.contains('bi-volume-up')) {
+      const text = e.target.parentElement.textContent.trim();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US'; // Menentukan bahasa (Inggris - US)
+
+      // Membacakan teks menggunakan SpeechSynthesis API
+      speechSynthesis.speak(utterance);
+  }
+});
+
+
+
+
+
+
+
+
+
 
 // Fungsi untuk menambahkan atau mengurangi tanggal
 function tambahTanggal(tanggal, jumlahHari) {
@@ -263,59 +300,7 @@ function tampilkanwaktuSekarang() {
 }
 
 
-// Fungsi untuk menghapus kosakata dari localStorage
-const hapusKosakata = () => localStorage.setItem('words', JSON.stringify([]));
 
-// Event listener untuk tombol toggle di navbar
-document.getElementById('toggle').addEventListener('click', () => {
-  if (confirm('Benarkah ingin menghapus?')) {
-    hapusKosakata();
-    location.reload(); // Reload halaman setelah menghapus data
-  }
-});
-
-
-
-
-$('.tombol-titik-3').addEventListener('click', e => {
-  e.target.nextElementSibling.classList.toggle('hidden')
-  e.target.classList.toggle('text-red-500')
-  e.target.classList.toggle('bi-x-lg')
-  e.target.classList.toggle('bi-three-dots-vertical')
-})
-
-
-
-// let table = document.createElement('table')
-// const tr = document.createElement('tr')
-
-// const td = document.createElement('td')
-// const tgll = document.createTextNode('tanggal')
-// td.append(tgll)
-// const td2 = document.createElement('td')
-// const ingris = document.createTextNode('english')
-// td2.append(ingris)
-// const td3 = document.createElement('td')
-// const indo = document.createTextNode('indonesia')
-// td3.append(indo)
-// tr.append(td)
-// tr.append(td2)
-// tr.append(td3)
-// table.prepend(tr)
-// table.classList.add('muncang')
-// const tbody = `
-//   <tbody>
-//     ${words.map(w => `
-//       <tr>
-//         <td>${w.date}</td>
-//         <td>${w.indonesian}</td>
-//         <td>${w.english}</td>
-//       </tr>
-//     `).join('')}
-//   </tbody>
-// `
-// table.innerHTML += tbody
-// document.body.append(table)
 
 
 
@@ -363,3 +348,114 @@ function initializeTheme() {
 initializeTheme();
 
 
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>Text-to-Speech Demo</title>
+//     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+//     <script src="js/responsivevoice.js"></script>
+// </head>
+// <body>
+//     <table class="my-3 w-full">
+//         <thead>
+//             <tr class="bg-green-600 text-white dark:bg-green-800 dark:text-gray-200">
+//                 <th>#</th>
+//                 <th>Inggris</th>
+//                 <th>Indonesia</th>
+//                 <th></th>
+//             </tr>
+//         </thead>
+//         <tbody id="table-body"></tbody>
+//     </table>
+
+//     <script>
+//         // Fungsi untuk memuat data kata dari localStorage ke tabel
+//         function loadWords(words) {
+//             words.forEach((word, index) => {
+//                 const row = document.createElement('tr');
+//                 row.dataset.index = index;
+//                 row.innerHTML = `
+//                     <td class="text-right">${index + 1}</td>
+//                     <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+//                     <td>${word.indonesian}</td>
+//                     <td class="w-10">
+//                         <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+//                         <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+//                     </td>
+//                 `;
+//                 document.getElementById('table-body').appendChild(row);
+//             });
+//         }
+
+//         document.getElementById('table-body').addEventListener('click', e => {
+//             if (e.target.classList.contains('bi-volume-up')) {
+//                 const text = e.target.parentElement.textContent.trim();
+//                 const utterance = new SpeechSynthesisUtterance(text);
+//                 utterance.lang = 'en-US'; // Menentukan bahasa (Inggris - US)
+
+//                 // Membacakan teks menggunakan SpeechSynthesis API
+//                 speechSynthesis.speak(utterance);
+//             }
+//         });
+
+//         // Contoh data kata
+//         const words = [
+//             { english: 'dream', indonesian: 'mimpi' },
+//             { english: 'one', indonesian: 'satu' },
+//             { english: 'noticed', indonesian: 'terlihat' }
+//         ];
+
+//         // Memuat data kata ke tabel
+//         loadWords(words);
+//     </script>
+// </body>
+// </html>
