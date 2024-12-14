@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Selection Demo</title>
+    <title> Demo</title>
     <style>
          /* Izinkan seleksi teks, tetapi nonaktifkan menu konteks */
          body {
@@ -37,7 +37,7 @@
     </div>
 
     <script>
-        document.addEventListener('mouseup', function(event) {
+     function showContextMenu(event) {
             const selectedText = window.getSelection().toString().trim();
             if (selectedText) {
                 const contextMenu = document.getElementById('context-menu');
@@ -54,7 +54,10 @@
             } else {
                 document.getElementById('context-menu').style.display = 'none';
             }
-        });
+        }
+
+        document.addEventListener('mouseup', showContextMenu);
+        document.addEventListener('touchend', showContextMenu);
 
         document.addEventListener('click', function(event) {
             if (!event.target.closest('#context-menu')) {
@@ -62,12 +65,8 @@
             }
         });
 
-
         
-         // Nonaktifkan menu konteks untuk semua elemen
-         document.addEventListener('contextmenu', (event) => {
-            event.preventDefault(); // Nonaktifkan menu konteks
-        });
+
     </script>
 </body>
 </html>

@@ -350,8 +350,7 @@ initializeTheme();
 
 
 
-
-document.addEventListener('mouseup', function(event) {
+function showContextMenu(event) {
   const selectedText = window.getSelection().toString().trim();
   if (selectedText) {
       const contextMenu = document.getElementById('context-menu');
@@ -368,13 +367,19 @@ document.addEventListener('mouseup', function(event) {
   } else {
       document.getElementById('context-menu').style.display = 'none';
   }
-});
+}
+
+document.addEventListener('mouseup', showContextMenu);
+document.addEventListener('touchend', showContextMenu);
 
 document.addEventListener('click', function(event) {
   if (!event.target.closest('#context-menu')) {
       document.getElementById('context-menu').style.display = 'none';
   }
 });
+
+
+
 
 
 
