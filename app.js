@@ -351,6 +351,38 @@ initializeTheme();
 
 
 
+document.addEventListener('mouseup', function(event) {
+  const selectedText = window.getSelection().toString().trim();
+  if (selectedText) {
+      const contextMenu = document.getElementById('context-menu');
+      contextMenu.style.display = 'block';
+      contextMenu.style.left = `${event.pageX}px`;
+      contextMenu.style.top = `${event.pageY}px`;
+
+      document.getElementById('speak-button').onclick = function() {
+          const utterance = new SpeechSynthesisUtterance(selectedText);
+          utterance.lang = 'en-US';
+          speechSynthesis.speak(utterance);
+          contextMenu.style.display = 'none';
+      };
+  } else {
+      document.getElementById('context-menu').style.display = 'none';
+  }
+});
+
+document.addEventListener('click', function(event) {
+  if (!event.target.closest('#context-menu')) {
+      document.getElementById('context-menu').style.display = 'none';
+  }
+});
+
+
+
+
+
+
+
+
 
 
 
