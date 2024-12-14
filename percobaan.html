@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Demo</title>
+    <title>Text-to-Speech Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="js/responsivevoice.js"></script>
     <style>
-         /* Izinkan seleksi teks, tetapi nonaktifkan menu konteks */
-         body {
-            -webkit-touch-callout: none; /* Nonaktifkan menu konteks di perangkat sentuh */
-        }
         #context-menu {
             display: none;
             position: absolute;
@@ -31,13 +29,68 @@
     </style>
 </head>
 <body>
-    <p>Select some text to see the custom context menu.</p>
+    <table class="my-3 w-full">
+        <thead>
+            <tr class="bg-green-600 text-white dark:bg-green-800 dark:text-gray-200">
+                <th>#</th>
+                <th>Inggris</th>
+                <th>Indonesia</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
     <div id="context-menu">
         <button id="speak-button">Speak</button>
     </div>
 
     <script>
-     function showContextMenu(event) {
+        // Fungsi untuk memuat data kata dari localStorage ke tabel
+        function loadWords(words) {
+            words.forEach((word, index) => {
+                const row = document.createElement('tr');
+                row.dataset.index = index;
+                row.innerHTML = `
+                    <td class="text-right">${index + 1}</td>
+                    <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+                    <td>${word.indonesian}</td>
+                    <td class="w-10">
+                        <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+                        <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+                    </td>
+                `;
+                document.getElementById('table-body').appendChild(row);
+            });
+        }
+
+        document.getElementById('table-body').addEventListener('click', e => {
+            if (e.target.classList.contains('bi-volume-up')) {
+                const text = e.target.parentElement.textContent.trim();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; // Menentukan bahasa (Inggris - US)
+
+                // Membacakan teks menggunakan SpeechSynthesis API
+                speechSynthesis.speak(utterance);
+            }
+        });
+
+        document.addEventListener('selectionchange', function() {
+            const selectedText = window.getSelection().toString().trim();
+            if (selectedText) {
+                const range = window.getSelection().getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+                showContextMenu({ pageX: rect.right, pageY: rect.bottom });
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#context-menu') && !window.getSelection().toString().trim()) {
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
+
+        function showContextMenu(event) {
             const selectedText = window.getSelection().toString().trim();
             if (selectedText) {
                 const contextMenu = document.getElementById('context-menu');
@@ -51,22 +104,18 @@
                     speechSynthesis.speak(utterance);
                     contextMenu.style.display = 'none';
                 };
-            } else {
-                document.getElementById('context-menu').style.display = 'none';
             }
         }
 
-        document.addEventListener('mouseup', showContextMenu);
-        document.addEventListener('touchend', showContextMenu);
+        // Contoh data kata
+        const words = [
+            { english: 'dream', indonesian: 'mimpi' },
+            { english: 'one', indonesian: 'satu' },
+            { english: 'noticed', indonesian: 'terlihat' }
+        ];
 
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('#context-menu')) {
-                document.getElementById('context-menu').style.display = 'none';
-            }
-        });
-
-        
-
+        // Memuat data kata ke tabel
+        loadWords(words);
     </script>
 </body>
 </html>

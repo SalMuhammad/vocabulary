@@ -349,7 +349,6 @@ initializeTheme();
 
 
 
-
 function showContextMenu(event) {
   const selectedText = window.getSelection().toString().trim();
   if (selectedText) {
@@ -364,16 +363,20 @@ function showContextMenu(event) {
           speechSynthesis.speak(utterance);
           contextMenu.style.display = 'none';
       };
-  } else {
-      document.getElementById('context-menu').style.display = 'none';
   }
 }
 
-document.addEventListener('mouseup', showContextMenu);
-document.addEventListener('touchend', showContextMenu);
+document.addEventListener('selectionchange', function() {
+  const selectedText = window.getSelection().toString().trim();
+  if (selectedText) {
+      const range = window.getSelection().getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      showContextMenu({ pageX: rect.right, pageY: rect.bottom });
+  }
+});
 
 document.addEventListener('click', function(event) {
-  if (!event.target.closest('#context-menu')) {
+  if (!event.target.closest('#context-menu') && !window.getSelection().toString().trim()) {
       document.getElementById('context-menu').style.display = 'none';
   }
 });
