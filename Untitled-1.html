@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nonaktifkan Menu Konteks</title>
+    <style>
+        /* Izinkan seleksi teks, tetapi nonaktifkan menu konteks */
+        body {
+            -webkit-touch-callout: none; /* Nonaktifkan menu konteks di perangkat sentuh */
+        }
+    </style>
+</head>
+<body>
+    <p>Coba seleksi teks ini. Menu konteks bawaan seperti "Salin" tidak akan muncul, tetapi teks masih bisa diseleksi.</p>
+
+    <script>
+        // Nonaktifkan menu konteks untuk semua elemen
+        document.addEventListener('contextmenu', (event) => {
+            event.preventDefault(); // Nonaktifkan menu konteks
+        });
+    </script>
+</body>
+</html>

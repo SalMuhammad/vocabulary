@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Selection Demo</title>
+    <style>
+         /* Izinkan seleksi teks, tetapi nonaktifkan menu konteks */
+         body {
+            -webkit-touch-callout: none; /* Nonaktifkan menu konteks di perangkat sentuh */
+        }
+        #context-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        #context-menu button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            border: none;
+            background: none;
+            text-align: left;
+        }
+        #context-menu button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <p>Select some text to see the custom context menu.</p>
+    <div id="context-menu">
+        <button id="speak-button">Speak</button>
+    </div>
+
+    <script>
+        document.addEventListener('mouseup', function(event) {
+            const selectedText = window.getSelection().toString().trim();
+            if (selectedText) {
+                const contextMenu = document.getElementById('context-menu');
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = `${event.pageX}px`;
+                contextMenu.style.top = `${event.pageY}px`;
+
+                document.getElementById('speak-button').onclick = function() {
+                    const utterance = new SpeechSynthesisUtterance(selectedText);
+                    utterance.lang = 'en-US';
+                    speechSynthesis.speak(utterance);
+                    contextMenu.style.display = 'none';
+                };
+            } else {
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#context-menu')) {
+                document.getElementById('context-menu').style.display = 'none';
+            }
+        });
+
+
+        
+         // Nonaktifkan menu konteks untuk semua elemen
+         document.addEventListener('contextmenu', (event) => {
+            event.preventDefault(); // Nonaktifkan menu konteks
+        });
+    </script>
+</body>
+</html>
