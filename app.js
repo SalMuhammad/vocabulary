@@ -354,47 +354,36 @@ initializeTheme();
 
 
 
-// Nonaktifkan menu konteks untuk seluruh halaman
+const customMenu = document.getElementById('customMenu');
+
+// Deteksi perubahan seleksi
+document.addEventListener('selectionchange', () => {
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+
+    if (selectedText) {
+        // Mendapatkan posisi seleksi
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+
+        // Tampilkan menu di posisi seleksi
+        customMenu.style.top = `${window.scrollY + rect.bottom}px`;
+        customMenu.style.left = `${rect.left}px`;
+        customMenu.style.display = 'block';
+    } else {
+        customMenu.style.display = 'none';
+    }
+});
+
+// Nonaktifkan menu konteks bawaan
 document.addEventListener('contextmenu', (event) => {
-  event.preventDefault(); // Mencegah menu konteks
+    event.preventDefault(); // Mencegah menu bawaan browser
 });
 
-
-
-
-
-function showContextMenu(event) {
-  const selectedText = window.getSelection().toString().trim();
-  if (selectedText) {
-      const contextMenu = document.getElementById('context-menu');
-      contextMenu.style.display = 'block';
-      contextMenu.style.left = `${event.pageX}px`;
-      contextMenu.style.top = `${event.pageY}px`;
-
-      document.getElementById('speak-button').onclick = function() {
-          const utterance = new SpeechSynthesisUtterance(selectedText);
-          utterance.lang = 'en-US';
-          speechSynthesis.speak(utterance);
-          contextMenu.style.display = 'none';
-      };
-  }
-}
-
-document.addEventListener('selectionchange', function() {
-  const selectedText = window.getSelection().toString().trim();
-  if (selectedText) {
-      const range = window.getSelection().getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      showContextMenu({ pageX: rect.right, pageY: rect.bottom });
-  }
+// Tambahkan aksi kustom saat menu diklik
+customMenu.addEventListener('click', () => {
+    alert('Menu khusus diklik!');
 });
-
-document.addEventListener('click', function(event) {
-  if (!event.target.closest('#context-menu') && !window.getSelection().toString().trim()) {
-      document.getElementById('context-menu').style.display = 'none';
-  }
-});
-
 
 
 
