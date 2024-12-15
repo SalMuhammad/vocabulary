@@ -3,119 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text-to-Speech Demo</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="js/responsivevoice.js"></script>
+    <title>Custom Text Selection</title>
     <style>
-        #context-menu {
-            display: none;
+        /* Tidak mematikan seleksi teks, tetapi mengatur ulang interaksi */
+        body {
+            -webkit-user-select: text; /* Untuk Chrome, Safari */
+            -moz-user-select: text;    /* Untuk Firefox */
+            -ms-user-select: text;     /* Untuk Edge */
+            user-select: text;         /* Untuk browser modern */
+        }
+
+        /* Menu khusus untuk teks */
+        #customMenu {
             position: absolute;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
-        #context-menu button {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            border: none;
-            background: none;
-            text-align: left;
-        }
-        #context-menu button:hover {
-            background-color: #f0f0f0;
+            display: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <table class="my-3 w-full">
-        <thead>
-            <tr class="bg-green-600 text-white dark:bg-green-800 dark:text-gray-200">
-                <th>#</th>
-                <th>Inggris</th>
-                <th>Indonesia</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-    </table>
+    <p>Seleksi teks ini untuk melihat menu khusus yang menggantikan fitur bawaan browser.</p>
 
-    <div id="context-menu">
-        <button id="speak-button">Speak</button>
-    </div>
+    <!-- Elemen menu khusus -->
+    <div id="customMenu">Menu Khusus</div>
+
+
 
     <script>
-        // Fungsi untuk memuat data kata dari localStorage ke tabel
-        function loadWords(words) {
-            words.forEach((word, index) => {
-                const row = document.createElement('tr');
-                row.dataset.index = index;
-                row.innerHTML = `
-                    <td class="text-right">${index + 1}</td>
-                    <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
-                    <td>${word.indonesian}</td>
-                    <td class="w-10">
-                        <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-                        <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
-                    </td>
-                `;
-                document.getElementById('table-body').appendChild(row);
-            });
-        }
 
-        document.getElementById('table-body').addEventListener('click', e => {
-            if (e.target.classList.contains('bi-volume-up')) {
-                const text = e.target.parentElement.textContent.trim();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US'; // Menentukan bahasa (Inggris - US)
 
-                // Membacakan teks menggunakan SpeechSynthesis API
-                speechSynthesis.speak(utterance);
-            }
-        });
+const customMenu = document.getElementById('customMenu');
 
-        document.addEventListener('selectionchange', function() {
-            const selectedText = window.getSelection().toString().trim();
-            if (selectedText) {
-                const range = window.getSelection().getRangeAt(0);
-                const rect = range.getBoundingClientRect();
-                showContextMenu({ pageX: rect.right, pageY: rect.bottom });
-            }
-        });
+// Deteksi perubahan seleksi
+document.addEventListener('selectionchange', () => {
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
 
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('#context-menu') && !window.getSelection().toString().trim()) {
-                document.getElementById('context-menu').style.display = 'none';
-            }
-        });
+    if (selectedText) {
+        // Mendapatkan posisi seleksi
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
 
-        function showContextMenu(event) {
-            const selectedText = window.getSelection().toString().trim();
-            if (selectedText) {
-                const contextMenu = document.getElementById('context-menu');
-                contextMenu.style.display = 'block';
-                contextMenu.style.left = `${event.pageX}px`;
-                contextMenu.style.top = `${event.pageY}px`;
+        // Tampilkan menu di posisi seleksi
+        customMenu.style.top = `${window.scrollY + rect.bottom}px`;
+        customMenu.style.left = `${rect.left}px`;
+        customMenu.style.display = 'block';
+    } else {
+        customMenu.style.display = 'none';
+    }
+});
 
-                document.getElementById('speak-button').onclick = function() {
-                    const utterance = new SpeechSynthesisUtterance(selectedText);
-                    utterance.lang = 'en-US';
-                    speechSynthesis.speak(utterance);
-                    contextMenu.style.display = 'none';
-                };
-            }
-        }
+// Nonaktifkan menu konteks bawaan
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault(); // Mencegah menu bawaan browser
+});
 
-        // Contoh data kata
-        const words = [
-            { english: 'dream', indonesian: 'mimpi' },
-            { english: 'one', indonesian: 'satu' },
-            { english: 'noticed', indonesian: 'terlihat' }
-        ];
+// Tambahkan aksi kustom saat menu diklik
+customMenu.addEventListener('click', () => {
+    alert('Menu khusus diklik!');
+});
 
-        // Memuat data kata ke tabel
-        loadWords(words);
     </script>
 </body>
 </html>

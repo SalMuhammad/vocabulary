@@ -349,6 +349,20 @@ initializeTheme();
 
 
 
+
+
+
+
+
+// Nonaktifkan menu konteks untuk seluruh halaman
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault(); // Mencegah menu konteks
+});
+
+
+
+
+
 function showContextMenu(event) {
   const selectedText = window.getSelection().toString().trim();
   if (selectedText) {

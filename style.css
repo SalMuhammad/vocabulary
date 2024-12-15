@@ -20,7 +20,6 @@ tr:nth-child(2n){
 
 
 
-
    /* Izinkan seleksi teks, tetapi nonaktifkan menu konteks */
    body {
     -webkit-touch-callout: none; /* Nonaktifkan menu konteks di perangkat sentuh */
