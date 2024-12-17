@@ -54,7 +54,7 @@ $('#add-form').addEventListener('submit', (e) => {
     };
     addWord(word);
     $('#add-form').reset();
-    hilangkanForm()
+    hilangkanForm();
   }
 });
 
@@ -84,8 +84,9 @@ function munculkanForm(){
   $('.overlay').classList.remove('hidden')
   tampilkanwaktuSekarang();
 }
-function hilangkanForm(elele){
+function hilangkanForm(){
   $('.overlay').classList.add('hidden')
+  
 }
 
 function filterByTime(obj,tahun,bulan,tanggal) {
@@ -109,43 +110,43 @@ function $(ell){
   return document.querySelector(ell)
 }
 
-// Fungsi untuk memuat data kata dari localStorage ke tabel
-function loadWords(words) {
-  words.forEach((word, index) => {
-      const row = document.createElement('tr');
-      row.dataset.index = index;
-      row.innerHTML = `
-          <td class="text-right">${index + 1}</td>
-          <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
-          <td>${word.indonesian}</td>
-          <td class="w-10">
-              <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-              <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
-          </td>
-      `;
-      document.getElementById('table-body').appendChild(row);
-  });
-}
-
 // // Fungsi untuk memuat data kata dari localStorage ke tabel
 // function loadWords(words) {
 //   words.forEach((word, index) => {
-//     const row = document.createElement('tr')
-//     row.dataset.index = index;
-//     row.innerHTML = `
-//       <td class="text-right">${index + 1}</td>
-//       <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
-//       <td>${word.indonesian}</td>
-      
-//       <td class="w-10">
-//       <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
-//       <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
-//       </td>
-//     `
-//     $('#table-body').appendChild(row);
-    
-//   })
+//       const row = document.createElement('tr');
+//       row.dataset.index = index;
+//       row.innerHTML = `
+//           <td class="text-right">${index + 1}</td>
+//           <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+//           <td>${word.indonesian}</td>
+//           <td class="w-10">
+//               <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+//               <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+//           </td>
+//       `;
+//       document.getElementById('table-body').appendChild(row);
+//   });
 // }
+
+// Fungsi untuk memuat data kata dari localStorage ke tabel
+function loadWords(words) {
+  words.forEach((word, index) => {
+    const row = document.createElement('tr')
+    row.dataset.index = index;
+    row.innerHTML = `
+      <td class="text-right">${index + 1}</td>
+      <td class="pl-2 relative">${word.english} <i class="bi bi-volume-up absolute right-0 pr-4"></i></td>
+      <td>${word.indonesian}</td>
+      
+      <td class="w-10">
+      <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
+      <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
+      </td>
+    `
+    $('#table-body').appendChild(row);
+    
+  })
+}
 
 // Fungsi untuk menambahkan kata baru ke localStorage dan tabel
 function addWord(word) {
@@ -155,11 +156,12 @@ function addWord(word) {
   
   const row = document.createElement('tr');
   row.dataset.index = words.length - 1;
+  let index = 0
   row.innerHTML = `
     <td class="text-right">${words.length}</td>
     <td class="pl-2">${word.english}</td>
     <td>${word.indonesian}</td>
-   
+    
     <td class="w-10">
       <button onclick="editWord(${index}, ${word})" class="edit"><i class="bi bi-pen-fill text-green-600"></i></button>
       <button onclick="deleteWord(${index})" class="delete"><i class="bi bi-trash text-red-600"></i></button>
@@ -167,7 +169,6 @@ function addWord(word) {
   `;
   $('#table-body').appendChild(row); 
 }
-
 
 
 // Fungsi untuk menghapus kata dari localStorage dan tabel
@@ -346,54 +347,6 @@ function initializeTheme() {
 
 // Panggil fungsi inisialisasi saat halaman dimuat
 initializeTheme();
-
-
-
-
-
-
-
-
-const customMenu = document.getElementById('customMenu');
-
-// Deteksi perubahan seleksi
-document.addEventListener('selectionchange', () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-
-    if (selectedText) {
-        // Mendapatkan posisi seleksi
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-
-        // Tampilkan menu di posisi seleksi
-        customMenu.style.top = `${window.scrollY + rect.bottom}px`;
-        customMenu.style.left = `${rect.left}px`;
-        customMenu.style.display = 'block';
-    } else {
-        customMenu.style.display = 'none';
-    }
-});
-
-// Nonaktifkan menu konteks bawaan
-document.addEventListener('contextmenu', (event) => {
-    event.preventDefault(); // Mencegah menu bawaan browser
-});
-
-// Tambahkan aksi kustom saat menu diklik
-customMenu.addEventListener('click', () => {
-    alert('Menu khusus diklik!');
-});
-
-
-
-
-
-
-
-
-
-
 
 
 

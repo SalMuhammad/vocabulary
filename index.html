@@ -11,12 +11,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="darwin dark:bg-gray-900 dark:text-white">
-      <!-- Elemen menu khusus -->
+      <!-- Elemen menu khusus
       <div id="customMenu">
         <li>bacakan</li>
         <li>bacakan</li>
         <li>tambahkan</li>
-    </div>
+    </div> -->
 
   <div class="container max-w-sm mx-auto border-red-700 dark:border-gray-600">
     <header class="w-full px-3 py-2 bg-blue-500 text-white dark:bg-gray-800 dark:text-gray-200">
@@ -50,7 +50,7 @@
 
     <!-- Bagian form -->
     <div class="overlay hidden absolute w-full h-full bg-zinc-800/70 dark:bg-black/50">
-      <div class="max-w-sm">
+      <div class="max-w-sm relative z-10">
         <div class="w-[80%] mx-auto mt-24 p-4 shadow-xl border-[1px] border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 rounded-lg relative">
           <i onclick="hilangkanForm()" class="bi bi-x absolute right-3 top-1 text-rose-600 cursor-pointer"></i>
           <form id="add-form">
@@ -78,9 +78,9 @@
               <th></th>
             </tr>
           </thead>
-          <tbody id="table-body"></tbody>
+          <tbody id="table-body" class="relative z-0"></tbody>
         </table>
-        <div class="flex justify-between absolute bottom-14 left-1/2 -translate-x-1/2 max-w-sm bg-white capitalize border-2 border-blue-500 rounded-md font-medium hidden dark:bg-gray-800 dark:border-gray-600">
+        <div class="fle justify-between absolute bottom-14 left-1/2 -translate-x-1/2 max-w-sm bg-white capitalize border-2 border-blue-500 rounded-md font-medium hidden dark:bg-gray-800 dark:border-gray-600">
           <span class="block py-2 px-3 dark:text-gray-300">kemarin</span>
           <span class="block bg-blue-500 text-white py-2 px-3 dark:bg-blue-700">sekarang</span>
           <span class="block py-2 px-3 dark:text-gray-300">esoknya</span>
