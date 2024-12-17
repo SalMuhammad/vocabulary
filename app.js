@@ -75,14 +75,25 @@ $('#table-body').addEventListener('click', (e) => {
     const row = e.target.parentElement.parentElement;
     const index = row.dataset.index;
     const word = getWord(index);
+    console.log('object');
     editWord(index, word);
   }
 })
 
 
+// Fungsi untuk mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+function getTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Bulan dalam 2 digit
+  const day = String(today.getDate()).padStart(2, '0'); // Hari dalam 2 digit
+  return `${year}-${month}-${day}`;
+}
+
 function munculkanForm(){
   $('.overlay').classList.remove('hidden')
   tampilkanwaktuSekarang();
+  $('#date').value = getTodayDate()
 }
 function hilangkanForm(){
   $('.overlay').classList.add('hidden')
