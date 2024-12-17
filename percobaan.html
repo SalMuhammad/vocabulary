@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Text Selection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* Tidak mematikan seleksi teks, tetapi mengatur ulang interaksi */
         body {
-            -webkit-user-select: text; /* Untuk Chrome, Safari */
-            -moz-user-select: text;    /* Untuk Firefox */
-            -ms-user-select: text;     /* Untuk Edge */
-            user-select: text;         /* Untuk browser modern */
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
-        /* Menu khusus untuk teks */
         #customMenu {
             position: absolute;
             display: none;
@@ -27,51 +27,52 @@
     </style>
 </head>
 <body>
-    <p>Seleksi teks ini untuk melihat menu khusus yang menggantikan fitur bawaan browser.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, eaque animi accusamus a aliquam eum iusto reiciendis aperiam repellendus minima?.</p>
 
-    <!-- Elemen menu khusus -->
-    <div id="customMenu">
-        <li>bacakan</li>
-        <li>bacakan</li>
+    <div id="customMenu" class="list-none overlie relative">
+        <span class="text-red-500 absolute font-bold cc" id="cc">x</span>
+        <br>
+        <li id="bacakan">bacakan</li>
         <li>tambahkan</li>
     </div>
 
-
-
     <script>
+        document.querySelector('.overlie').addEventListener('click', e => {
+            if(e.target.classList.contains('cc')) {
+                e.target.parentElement.style.display = 'none';
+            }
+        });
 
+        const customMenu = document.getElementById('customMenu');
 
-const customMenu = document.getElementById('customMenu');
+        document.addEventListener('selectionchange', () => {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
 
-// Deteksi perubahan seleksi
-document.addEventListener('selectionchange', () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
+            if (selectedText) {
+                const range = selection.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
 
-    if (selectedText) {
-        // Mendapatkan posisi seleksi
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
+                customMenu.style.top = `${window.scrollY + rect.bottom}px`;
+                customMenu.style.left = `${rect.left}px`;
+                customMenu.style.display = 'block';
+            }
+        });
 
-        // Tampilkan menu di posisi seleksi
-        customMenu.style.top = `${window.scrollY + rect.bottom}px`;
-        customMenu.style.left = `${rect.left}px`;
-        customMenu.style.display = 'block';
-    } else {
-        customMenu.style.display = 'none';
-    }
-});
+        document.addEventListener('contextmenu', (event) => {
+            event.preventDefault();
+        });
 
-// Nonaktifkan menu konteks bawaan
-document.addEventListener('contextmenu', (event) => {
-    event.preventDefault(); // Mencegah menu bawaan browser
-});
-
-// Tambahkan aksi kustom saat menu diklik
-customMenu.addEventListener('click', () => {
-    alert('Menu khusus diklik!');
-});
-
+        customMenu.addEventListener('click', (event) => {
+            if (event.target.id === 'bacakan') {
+                const selection = window.getSelection();
+                const selectedText = selection.toString().trim();
+                if (selectedText) {
+                    const utterance = new SpeechSynthesisUtterance(selectedText);
+                    speechSynthesis.speak(utterance);
+                }
+            }
+        });
     </script>
 </body>
 </html>

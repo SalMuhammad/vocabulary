@@ -84,7 +84,7 @@ function munculkanForm(){
   $('.overlay').classList.remove('hidden')
   tampilkanwaktuSekarang();
 }
-function hilangkanForm(){
+function hilangkanForm(elele){
   $('.overlay').classList.add('hidden')
 }
 
@@ -400,8 +400,6 @@ customMenu.addEventListener('click', () => {
 
 
 
-
-    
 
 
 
